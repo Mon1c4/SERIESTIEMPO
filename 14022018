@@ -1,0 +1,52 @@
+14022018
+#
+#ALGUNOS GRAFICOS SENCILLOS
+plot()
+hist()
+boxplot()
+barplot()
+set.seed(12345)
+variable_y<-rnorm(30)
+plot(variable_y)
+windows()
+x11() #
+xv<-seq(-3,3,0.01)
+yv<-dnorm(xv)
+plot(xv,yv,type="s", col=258,main="Distribucion normal",ylab = "KILO DE ORO",xlab = "PERIODO")
+#types<-c("p","l,"b","c","o","h","s","S","n")
+
+attach(mtcars)
+par(mfrow=c(3,1)) #apilar graficos
+hist(wt)
+hist(mpg)
+hist(disp)
+
+attach(mtcars)
+layout(matrix(c(1,1,2,3),2,2,byrow = TRUE)) #apilar graficos
+hist(wt)
+hist(mpg)
+hist(disp)
+
+#GGPLOT2
+install.packages("ggplot2")
+library(ggplot2)
+
+
+
+#EJERCICOI
+install.packages("readxl")
+library(readxl)
+petroleo<- read_excel("C://Users//Sala-D22//Documents//series de tiempo//petroleo.xlsx")
+petroleo.ts<-ts(petroleo) #abreviatura de timeseries "ts"
+plot(petroleo.ts,xlab="Tiempo",ylab="Precio del barril",main="Precio del barril de petroleo",
+     col=2)
+windows()
+
+install.packages("haven")
+library(haven)
+library(stats)
+library()
+
+datos_csv<-read.csv("C://Users//Sala-D22//Documents//series de tiempo//clase1.csv")
+datos.ts<-ts(datos_csv)
+plot(datos.ts,xlab = "TIEMPO",ylab = "INGRESOS",main = "INGRESOS",col=3)
