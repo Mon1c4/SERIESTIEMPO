@@ -1,0 +1,54 @@
+ #14032018
+#PROCESO AR(1)
+#VALOR DEL PARAMETRO=.75
+X11()
+set.seed(456) #semilla pseudoaleatoria del proceso
+y<-e<-rnorm(200)
+for(t in 2:200) y[t] <-.75*y[t-1]+e[t] #se arranca de 2:200 porque necesita al menos un retardo
+plot(y) #correlacionando yt con yt-1
+
+
+#funciones de autocorrelacion
+par(mfrow=c(2:1))
+plot(y,type="l",col=8)
+acf(y,col="red")
+
+#el comando ar permite ajustar un modelo autorregresiv AR(1), usando l estimación de 
+y.ar<-ar(y,method="mle") #maxima verosimilitud
+y.ar$order # y.ar extraiga el orden, de qué orden es, mediante mle AR es de orden 1. Si el orden es cero,no hya componente ar,
+#se compruebe por medias moviles, orden 2: fi 1 y fi 2
+y.ar$ar #define el valor del parametro, mediante el metodo de mle
+
+plot(y.ar,type="l",col=11)
+acf(y.ar,col="brown")
+plot(y.ar)
+
+y.ar$ar+c(-1.96,1.96)*sqrt(y.ar$asy.var) #valor de confianza al 95% #fi1 esta dentro del intervalo, fi1 describe le proceso
+
+#PROCESO AR(2)
+set.seed(10008000) #semilla pseudoaleatoria del proceso
+ar2<-e<-rnorm(150)
+for(t in 3:150) ar2[t] <-.55*ar2[t-1]-.44*ar2[t-2]+e[t] 
+plot(ar2,type="l") 
+acf(ar2)
+x11()
+set.seed(150) #semilla pseudoaleatoria del proceso
+yar2<-e<-rnorm(150)
+for(t in 3:150) yar2[t] <-.55*yar2[t-1]-.44*yar2[t-2]+e[t] 
+
+y.ar2<-ar(yar2,method="mle")
+
+y.ar2$order
+y.ar2$ar
+
+############################
+#PROCESO MA(q)
+
+#MA(1)
+x11()
+set.seed(135) #semilla pseudoaleatoria del proceso
+ma1<-e<-rnorm(300)
+for(t in 2:150) ma1[t] <-e[t]+.3*e[t-1] #EXAMEN!! 
+plot(ma1,type="l") 
+acf(ma1)
+
